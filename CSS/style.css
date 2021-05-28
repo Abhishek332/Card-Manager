@@ -1,0 +1,54 @@
+/* ======================== CSS Reset ======================== */
+*{
+    margin : 0;
+    padding: 0;
+    outline : none;
+    box-sizing: border-box;
+    font-family : "Raleway-Regular";
+    scroll-behavior: smooth;
+}
+
+body{
+    display : flex;
+    justify-content: center;
+    align-items : center;
+    flex-direction: column;
+    height : 100vh;
+    width : 100vw;
+}
+
+h1{
+    font-size : 50px;
+    font-family : "Lobster";
+    text-align : cetner;
+    margin : 50px 0 0px;
+    color : rgb(255, 255, 255);
+    text-shadow: 3px 3px 5px black, -1px -1px 3px black;
+}
+
+
+
+/* ======================== FONTS ======================== */
+@font-face{
+    font-family : "Raleway-Regular";
+    src : url('../Fonts/Raleway/static/Raleway-Regular.ttf');
+}
+
+@font-face{
+    font-family : "Raleway-Medium";
+    src : url('../Fonts/Raleway/static/Raleway-Medium.ttf');
+}
+
+@font-face{
+    font-family : "RocknRollOne-Regular";
+    src : url('../Fonts/RocknRoll_One/RocknRollOne-Regular.ttf');
+}
+
+@font-face{
+    font-family : "Lobster";
+    src : url('../Fonts/Lobster/Lobster-Regular.ttf');
+}
+/* ============================================================ */
+
+
+/* =========================== utility classes ======================== */

@@ -18,14 +18,13 @@ body{
 }
 
 h1{
-    font-size : 50px;
+    font-size : 3rem;
     font-family : "Lobster";
     text-align : cetner;
     margin : 50px 0 0px;
     color : rgb(255, 255, 255);
     text-shadow: 3px 3px 5px black, -1px -1px 3px black;
 }
-
 
 
 /* ======================== FONTS ======================== */

@@ -2,7 +2,8 @@
 session_start();
 
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
-    header("location: login.php");
+    echo "<script>alert('You Can't access without login, Please login first');</script>";
+    header("location: index.php");
     exit;
 }
 

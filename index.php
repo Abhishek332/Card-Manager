@@ -1,3 +1,81 @@
+<?php
+include 'connection.php';
+
+// ===================================== Sign Up =========================
+if(isset($_POST['signupbtn'])){
+    $showAlert = false;
+    $showError = false;
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $cpassword = $_POST["cpassword"];
+    
+
+    // Check whether this email exists
+    $existSql = "SELECT * FROM userdata WHERE email='$email'";
+    $result = mysqli_query($conn, $existSql);
+    $numExistRows = mysqli_num_rows($result);
+    if($numExistRows > 0){
+        $showError = true;
+        if($showError){
+            echo "<script>alert('Email Already Used Please Use a Different One')</script>";
+        }
+    }
+    else{
+        if(($password == $cpassword)){
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO userdata ( email, password) VALUES ('$email', '$hash')";
+            $result = mysqli_query($conn, $sql);
+            if ($result){
+                $showAlert = true;
+                if($showAlert){
+                    echo "<script>alert('Your account is now created and you can login');</script>";
+                }
+            }
+        }
+        else{
+            $showError = true;
+            if($showError){
+                echo "<script>alert('Please Enter Same Password in Both Section');</script>";
+            }
+        }
+    }
+}
+
+// =================================== Signin ==================================
+if(isset($_POST['signinbtn'])){
+    $login = false;
+    $showError = false;
+    $email = $_POST["email_in"];
+    $password = $_POST["password_in"]; 
+    
+    $sql = "Select * from userdata where email='$email'";
+    $result = mysqli_query($conn, $sql);
+    $num = mysqli_num_rows($result);
+    if($num==1){
+        while($row = mysqli_fetch_assoc($result)){
+            if ($row['password']=='$password'){ 
+                $login = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                echo "<script>alert('LogIn Successful');</script>";
+                header("location: user_dashboard.php");
+            }
+            else{
+                $showError = "Invalid Credentials";
+                echo "<script>alert($showError);</script>";
+            }
+        }
+        
+    }
+    else{
+        $showError = "Invalid Credentials";
+        echo "<script>alert($showError);</script>";
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,16 +157,16 @@
 <body>
     <h1>Card Manager</h1>
     <div class="wrapper">
-            <form name="signup" id="signup" class="sign" action="signup.php" method="POST">
+            <form name="signup" id="signup" class="sign" action="" method="POST">
                 <input type="email" name="email" id="email" placeholder="Email Id*" required/>
                 <input type="password" name="password" id="password" placeholder="Password*" required/>
                 <input type="password" name="cpassword" id="cpassword" placeholder="Confirm Password*" required/>
                 <button id="signupbtn" name="signupbtn">SignUp</button>
                 <p>If you are an existing User ? <span id="signincall" class="signcall"><u>SignIn</u></span></p>
             </form>
-            <form name="signup" id="signin" class="sign" action="signin.php" method="POST">
-                <input type="email" name="email" id="email" placeholder="Email Id*" required/>
-                <input type="password" name="password" id="password" placeholder="Password*" required/>
+            <form name="signin" id="signin" class="sign" action="" method="POST">
+                <input type="email" name="email_in" id="email_in" placeholder="Email Id*" required/>
+                <input type="password" name="password_in" id="password_in" placeholder="Password*" required/>
                 <button id="signinbtn" name="signinbtn">SignIn</button>
                 <p>If you are a new User ? <span id="signupcall" class="signcall"><u>SignUp</u></span></p>
             </form>

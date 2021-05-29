@@ -7,20 +7,24 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
     exit;
 }
 else{
+    include 'connection.php';
+    $email = $_SESSION['email'];
     if(isset($_POST['infobtn'])){
-        $email = $_SESSION['email'];
-        include 'connection.php';
         extract($_POST);
-        echo "SUCCESSFUL";
-        $sql = "UPDATE userdata SET photo='$image', fname='$fname', lname='$lname', phone='$phone',
+        $cpassword=$fname." ".$lname;
+        $sql = "UPDATE userdata SET photo='$image', fname='$fname', lname='$lname', cpassword='$cpassword', phone='$phone',
         whatsapp='$whatsapp', address='$address', company='$company', designation='$designation',
         github='$github', linkedin='$linkedin', twitter='$twitter', instagram='$instagram',
         facebook='$facebook' WHERE email = '$email'";
         $result = mysqli_query($conn, $sql);
-        if($sql){
+        if($result){
              echo "<script> alert('Info Updated Successfully'); </script>";
         }
     }
+    $query = "SELECT * from userdata where email= '$email'";
+    $query_run =  mysqli_query($conn, $query);
+    $row= mysqli_fetch_assoc($query_run);
+    
 }
 ?>
 
@@ -135,6 +139,29 @@ else{
         .info button:hover{
             background : linear-gradient(rgb(133, 8, 8) 0.2%, rgba(240, 105, 105, 0.829) 70%, rgb(133, 8, 8) 100%);
         }
+
+        .img-wrapper{
+            height : 30px;
+            width : 50px;
+            position : relative;
+            margin : 20px auto;
+        }
+
+        .img-wrapper img{
+            position : absolute;
+            width : 100%;
+            height : 100%;
+        }
+
+        
+        p{
+            font-family : "RocknRollOne-Regular";
+            font-size : 15px;
+            text-align: center;
+            color : rgb(196 21 21 / 86%);
+            line-height : 25px;
+        }
+
     </style>
 </head>
 
@@ -150,24 +177,30 @@ else{
         </a>
     </div>
     <div class="wrapper">
-        <form action="" class="info">
+        <form action="" class="info" method="POST">
             <div class="img-input">
-                <input type="file" name="image" id="image" value="" required/>
+                <input type="file" name="image" id="image" value=""/>
             </div>
-            <input type="text" name="fname" id="fname" placeholder="First Name*" required/>
-            <input type="text" name="lname" id="lname" placeholder="Last Name*" required/>
-            <input type="mobile" name="phone" id="phone" placeholder="Contact*" required/>
-            <input type="text" name="address" id="address" placeholder="Address" required/>
-            <input type="mobile" name="whatsapp" id="whatsapp" placeholder="Whatsapp No." />
-            <input type="text" name="company" id="company" placeholder="Company Name"/>
-            <input type="text" name="designation" id="designation" placeholder="Designation"/>
-            <input type="url" name="github" id="github" placeholder="Github Link"/>
-            <input type="url" name="linkedin" id="linkedin" placeholder="LinkedIn Link"/>
-            <input type="url" name="instagram" id="instagram" placeholder="Instagram"/>
-            <input type="url" name="twitter" id="twitter" placeholder="Twitter"/>
-            <input type="url" name="facebook" id="facebook" placeholder="Facebook"/>
+            <input type="text" name="fname" id="fname" placeholder="First Name*" value="<?php echo $row['fname']; ?>" required/>
+            <input type="text" name="lname" id="lname" placeholder="Last Name*"  value="<?php echo $row['lname']; ?>" required/>
+            <input type="mobile" name="phone" id="phone" placeholder="Contact" value="<?php echo $row['phone']; ?>"/>
+            <input type="text" name="address" id="address" placeholder="Address" value="<?php echo $row['address']; ?>"/>
+            <input type="mobile" name="whatsapp" id="whatsapp" placeholder="Whatsapp No." value="<?php echo $row['whatsapp']; ?>"/>
+            <input type="text" name="company" id="company" placeholder="Company Name" value="<?php echo $row['company']; ?>"/>
+            <input type="text" name="designation" id="designation" placeholder="Designation" value="<?php echo $row['designation']; ?>"/>
+            <input type="url" name="github" id="github" placeholder="Github Link" value="<?php echo $row['github']; ?>"/>
+            <input type="url" name="linkedin" id="linkedin" placeholder="LinkedIn Link" value="<?php echo $row['linkedin']; ?>"/>
+            <input type="url" name="instagram" id="instagram" placeholder="Instagram" value="<?php echo $row['instagram']; ?>"/>
+            <input type="url" name="twitter" id="twitter" placeholder="Twitter" value="<?php echo $row['twitter']; ?>"/>
+            <input type="url" name="facebook" id="facebook" placeholder="Facebook" value="<?php echo $row['facebook']; ?>"/>
             <button id="infobtn" name="infobtn">Update info</button>
         </form>
     </div>
+    <p>Your Card Password will be your Full Name. You can see your card by clicking the eye icon</p>
+    <a href="card.php">
+        <div class="img-wrapper">
+            <img src="Images/eye.png" alt="">
+        </div>
+    </a>
 </body>
 </html>

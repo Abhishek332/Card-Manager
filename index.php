@@ -22,8 +22,8 @@ if(isset($_POST['signupbtn'])){
     }
     else{
         if(($password == $cpassword)){
-            //$hash = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO userdata ( email, password) VALUES ('$email', '$password')";
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO userdata ( email, password) VALUES ('$email', '$hash')";
             $result = mysqli_query($conn, $sql);
             if ($result){
                 $showAlert = true;
@@ -49,10 +49,10 @@ if(isset($_POST['signinbtn'])){
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     if($row){
-        //if (password_verify($password, $row['password'])){ 
-        if($row['password']==$password){
+        if (password_verify($password, $row['password'])){
             session_start();
             $_SESSION['loggedin'] = true;
+            $_SESSION['email'] = $email;
             echo "<script>alert('LogIn Successful');</script>";
             header("location: user_dashboard.php");
         }

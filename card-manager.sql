@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2021 at 09:21 AM
+-- Generation Time: May 31, 2021 at 12:40 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.5
 
@@ -32,14 +32,13 @@ CREATE TABLE `userdata` (
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(15) NOT NULL,
-  `cpassword` varchar(15) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `phone` int(10) NOT NULL,
   `whatsapp` int(10) NOT NULL,
   `address` varchar(1000) NOT NULL,
   `company` varchar(255) NOT NULL,
   `designation` varchar(255) NOT NULL,
-  `photo` blob NOT NULL,
+  `image` varchar(255) NOT NULL,
   `github` varchar(1200) NOT NULL,
   `linkedin` varchar(1200) NOT NULL,
   `twitter` varchar(1200) NOT NULL,
@@ -51,16 +50,8 @@ CREATE TABLE `userdata` (
 -- Dumping data for table `userdata`
 --
 
-INSERT INTO `userdata` (`Sr.`, `fname`, `lname`, `email`, `password`, `cpassword`, `phone`, `whatsapp`, `address`, `company`, `designation`, `photo`, `github`, `linkedin`, `twitter`, `instagram`, `facebook`) VALUES
-(1, '', '', 'mstax2018@gmail.com', '$2y$10$4Lo3V/Ky', '', 0, 0, '', '', '', '', '', '', '', '', ''),
-(2, '', '', 'abhishek@gmail.com', '$2y$10$3C8x0txz', '', 0, 0, '', '', '', '', '', '', '', '', ''),
-(3, '', '', 'payal@gmail.com', '$2y$10$iXAqXvMr', '', 0, 0, '', '', '', '', '', '', '', '', ''),
-(4, '', '', 'mohan@gmail.com', '$2y$10$tmfENue0', '', 0, 0, '', '', '', '', '', '', '', '', ''),
-(5, '', '', 'rajiv@gmail.com', '$2y$10$wq2MEeLL', '', 0, 0, '', '', '', '', '', '', '', '', ''),
-(6, '', '', 'rajesh@gmail.com', '$2y$10$0Un2DWV8', '', 0, 0, '', '', '', '', '', '', '', '', ''),
-(7, '', '', 'rahul@gmail.com', '$2y$10$5/CHl/TK', '', 0, 0, '', '', '', '', '', '', '', '', ''),
-(8, '', '', 'sharda@gmail.com', '$2y$10$0XvYZ.Lt', '', 0, 0, '', '', '', '', '', '', '', '', ''),
-(9, '', '', 'yuvraj@gmail.com', '$2y$10$qKsWXsXd', '', 0, 0, '', '', '', '', '', '', '', '', '');
+INSERT INTO `userdata` (`Sr.`, `fname`, `lname`, `email`, `password`, `phone`, `whatsapp`, `address`, `company`, `designation`, `image`, `github`, `linkedin`, `twitter`, `instagram`, `facebook`) VALUES
+(29, 'Payal', 'Porwal', 'payal@gmail.com', '$2y$10$xF.0B9T52ucCUkp3/au84O578pRDnbhjcf1oqbzn7Megdvmkkv4PW', 2147483647, 2147483647, '5, Dayanand Colony, Street No. 2', 'Areksoft Technology', 'Web Developer', 'suryalogo (2).png', 'https://github.com/payal', 'https://linkedin.com/payal', '', '', '');
 
 --
 -- Indexes for dumped tables
@@ -81,7 +72,7 @@ ALTER TABLE `userdata`
 -- AUTO_INCREMENT for table `userdata`
 --
 ALTER TABLE `userdata`
-  MODIFY `Sr.` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Sr.` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

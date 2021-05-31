@@ -11,14 +11,28 @@ else{
     $email = $_SESSION['email'];
     if(isset($_POST['infobtn'])){
         extract($_POST);
-        $cpassword=$fname." ".$lname;
-        $sql = "UPDATE userdata SET photo='$image', fname='$fname', lname='$lname', cpassword='$cpassword', phone='$phone',
-        whatsapp='$whatsapp', address='$address', company='$company', designation='$designation',
-        github='$github', linkedin='$linkedin', twitter='$twitter', instagram='$instagram',
-        facebook='$facebook' WHERE email = '$email'";
-        $result = mysqli_query($conn, $sql);
-        if($result){
-             echo "<script> alert('Info Updated Successfully'); </script>";
+        //$cpassword=strtolower($fname)." ".strtolower($lname);
+        $image = $_FILES['image'];
+        print_R($image);    
+        $image_name = $image['name'];
+        $image_tmp = $image['tmp_name'];
+        $image_extension = explode('.', $image_name); //to explode to string into two parts name and extention
+        $image_check = strtolower(end($image_extension));
+        $extention_array = array('jpg', 'jpeg', 'png');
+        if(in_array($image_check, $extention_array)){
+            $destination_file = 'Uploads/'.$image_name;
+            move_uploaded_file($image_tmp, $destination_file);
+            $sql = "UPDATE userdata SET fname='$fname', lname='$lname', image='$image_name', phone='$phone',
+            whatsapp='$whatsapp', address='$address', company='$company', designation='$designation',
+            github='$github', linkedin='$linkedin', twitter='$twitter', instagram='$instagram',
+            facebook='$facebook' WHERE email = '$email'";
+            $result = mysqli_query($conn, $sql);
+            if($result){
+                echo "<script> alert('Info Updated Successfully'); </script>";
+            }
+        }
+        else{
+            echo "<script>alert('You only can upload .jpg, .jpeg or .png file in Image Section');</script>";
         }
     }
     $query = "SELECT * from userdata where email= '$email'";
@@ -77,15 +91,23 @@ else{
             display : flex;
             justify-content : center;
             align-items : center;
-            
+            flex-direction : column;
+        }
+
+        .img-input .img-wrapper{
+            width : 80px;
+            height : 80px;
+            position : relative;
+            overflow : hidden;
+            border-radius : 50%;
         }
 
         .info input[type="file"]{
-            width : 80px;
-            height : 80px;
-            border-radius : 50%;
+            width : 150px;
+            height : 20px;
+            border-radius : 20px;
+            background : #eb163b91;
         }
-     
 
         .logout{
             height : 50px;
@@ -145,11 +167,12 @@ else{
             width : 50px;
             position : relative;
             margin : 20px auto;
+            overflow : hidden;
         }
 
         .img-wrapper img{
             position : absolute;
-            width : 100%;
+            //width : 100%;
             height : 100%;
         }
 
@@ -177,8 +200,12 @@ else{
         </a>
     </div>
     <div class="wrapper">
-        <form action="" class="info" method="POST">
+        <form action="" class="info" method="POST" enctype="multipart/form-data">
             <div class="img-input">
+                <div class="img-wrapper">
+                    <!-- <img src="<?php echo $row['image']; ?> " alt=""> -->
+                    <?php echo $row['image']; ?>    
+                </div>
                 <input type="file" name="image" id="image" value=""/>
             </div>
             <input type="text" name="fname" id="fname" placeholder="First Name*" value="<?php echo $row['fname']; ?>" required/>

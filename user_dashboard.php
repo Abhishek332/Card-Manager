@@ -2,19 +2,22 @@
 session_start();
 
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
-    echo "<script>alert('You Can't access without login, Please login first');</script>";
     header("location: index.php");
     exit;
 }
 else{
     include 'connection.php';
     $email = $_SESSION['email'];
+    $query = "SELECT * from userdata where email= '$email'";
+    $query_run =  mysqli_query($conn, $query);
+    $row= mysqli_fetch_assoc($query_run);
     if(isset($_POST['infobtn'])){
         extract($_POST);
-        //$cpassword=strtolower($fname)." ".strtolower($lname);
         $image = $_FILES['image'];
-        print_R($image);    
         $image_name = $image['name'];
+        if($image_name == NULL){
+            $image_name = $row['image'];
+        }
         $image_tmp = $image['tmp_name'];
         $image_extension = explode('.', $image_name); //to explode to string into two parts name and extention
         $image_check = strtolower(end($image_extension));
@@ -23,10 +26,10 @@ else{
             $destination_file = 'Uploads/'.$image_name;
             move_uploaded_file($image_tmp, $destination_file);
             $sql = "UPDATE userdata SET fname='$fname', lname='$lname', image='$image_name', phone='$phone',
-            whatsapp='$whatsapp', address='$address', company='$company', designation='$designation',
-            github='$github', linkedin='$linkedin', twitter='$twitter', instagram='$instagram',
-            facebook='$facebook' WHERE email = '$email'";
-            $result = mysqli_query($conn, $sql);
+                    whatsapp='$whatsapp', address='$address', company='$company', designation='$designation',
+                    github='$github', linkedin='$linkedin', twitter='$twitter', instagram='$instagram',
+                    facebook='$facebook' WHERE email = '$email'";
+            $result = mysqli_query($conn, $sql);  
             if($result){
                 echo "<script> alert('Info Updated Successfully'); </script>";
             }
@@ -38,7 +41,6 @@ else{
     $query = "SELECT * from userdata where email= '$email'";
     $query_run =  mysqli_query($conn, $query);
     $row= mysqli_fetch_assoc($query_run);
-    
 }
 ?>
 
@@ -56,13 +58,12 @@ else{
         }
 
         .nav{
-            height : 100px;
             width : 100%;
             background : #3939f696;
             display : flex;
             justify-content : space-between;
             align-items : center;
-            padding : 0 50px;
+            padding : 20px 50px;
         }
 
         .nav h1{
@@ -71,7 +72,7 @@ else{
 
         @media (max-width :450px){
             .nav{
-                padding : 0 20px;
+                padding : 20px;
             }
 
             .nav h1{
@@ -98,15 +99,19 @@ else{
             width : 80px;
             height : 80px;
             position : relative;
-            overflow : hidden;
             border-radius : 50%;
+            display : flex;
+            justify-content : center;
+        }
+
+        .img-input label{
+            display : flex;
+            align-items : center;
+            flex-direction : column;
         }
 
         .info input[type="file"]{
-            width : 150px;
-            height : 20px;
-            border-radius : 20px;
-            background : #eb163b91;
+            display : none;
         }
 
         .logout{
@@ -137,14 +142,24 @@ else{
             justify-content : center;
         }
         
-        .info input{
-            padding : 10px;
+        .info div{
             margin : 20px;
+            width : 100%;
+        }
+
+        .info div input{
+            padding : 10px;
             width : 100%;
             border : none;
             box-shadow : 0 0 5px 3px pink;
             border-radius: 5px;
-            
+            margin-top : 10px;
+            font-size : 15px;
+        }
+
+        .info div label{
+            font-weight : bold;
+            color : #eb1036d6;
         }
 
         .info button{
@@ -172,8 +187,7 @@ else{
 
         .img-wrapper img{
             position : absolute;
-            //width : 100%;
-            height : 100%;
+            width : 100%;
         }
 
         
@@ -202,24 +216,66 @@ else{
     <div class="wrapper">
         <form action="" class="info" method="POST" enctype="multipart/form-data">
             <div class="img-input">
-                <div class="img-wrapper">
-                    <!-- <img src="<?php echo $row['image']; ?> " alt=""> -->
-                    <?php echo $row['image']; ?>    
-                </div>
-                <input type="file" name="image" id="image" value=""/>
+                <label for="image">
+                    <div class="img-wrapper">
+                        <?php if($row['image']== 'NULL'){?>
+                            <img src="Images/camera.png" alt="">
+                        <?php }else{ ?>
+                            <img src="Uploads/<?php echo $row['image']; ?>" alt="">
+                        <?php } ?>
+                    </div>
+                    Upload Your Picture Here
+                </label>
+                <input type="file" name="image" id="image"/>
             </div>
-            <input type="text" name="fname" id="fname" placeholder="First Name*" value="<?php echo $row['fname']; ?>" required/>
-            <input type="text" name="lname" id="lname" placeholder="Last Name*"  value="<?php echo $row['lname']; ?>" required/>
-            <input type="mobile" name="phone" id="phone" placeholder="Contact" value="<?php echo $row['phone']; ?>"/>
-            <input type="text" name="address" id="address" placeholder="Address" value="<?php echo $row['address']; ?>"/>
-            <input type="mobile" name="whatsapp" id="whatsapp" placeholder="Whatsapp No." value="<?php echo $row['whatsapp']; ?>"/>
-            <input type="text" name="company" id="company" placeholder="Company Name" value="<?php echo $row['company']; ?>"/>
-            <input type="text" name="designation" id="designation" placeholder="Designation" value="<?php echo $row['designation']; ?>"/>
-            <input type="url" name="github" id="github" placeholder="Github Link" value="<?php echo $row['github']; ?>"/>
-            <input type="url" name="linkedin" id="linkedin" placeholder="LinkedIn Link" value="<?php echo $row['linkedin']; ?>"/>
-            <input type="url" name="instagram" id="instagram" placeholder="Instagram" value="<?php echo $row['instagram']; ?>"/>
-            <input type="url" name="twitter" id="twitter" placeholder="Twitter" value="<?php echo $row['twitter']; ?>"/>
-            <input type="url" name="facebook" id="facebook" placeholder="Facebook" value="<?php echo $row['facebook']; ?>"/>
+            <div>
+                <label for="fname">First Name</label>
+                <input type="text" name="fname" id="fname" placeholder="First Name*" value="<?php echo $row['fname']; ?>" required/>
+            </div>
+            <div>
+                <label for="lname">Last Name</label>
+                <input type="text" name="lname" id="lname" placeholder="Last Name*"  value="<?php echo $row['lname']; ?>" required/>
+            </div>
+            <div>
+                <label for="mobile">Contact</label>
+                <input type="mobile" name="phone" id="phone" placeholder="Contact" value="<?php echo $row['phone']; ?>"/>
+            </div>
+            <div>
+                <label for="address">WhatsApp</label>
+                <input type="mobile" name="whatsapp" id="whatsapp" placeholder="Whatsapp No." value="<?php echo $row['whatsapp']; ?>"/>
+            </div>
+            <div>
+                <label for="address">Address</label>
+                <input type="text" name="address" id="address" placeholder="Address" value="<?php echo $row['address']; ?>"/>
+            </div>
+            <div>
+                <label for="company">Company Name</label>
+                <input type="text" name="company" id="company" placeholder="Company Name" value="<?php echo $row['company']; ?>"/>
+            </div>
+            <div>
+                <label for="designation">Your Designation</label>
+                <input type="text" name="designation" id="designation" placeholder="Designation" value="<?php echo $row['designation']; ?>"/>
+            </div>
+            <div>
+                <label for="github">GitHub Account</label>
+                <input type="url" name="github" id="github" placeholder="Github Link" value="<?php echo $row['github']; ?>"/>
+            </div>
+            <div>
+                <label for="linkedIn">LinkedIn Account</label>
+                <input type="url" name="linkedin" id="linkedin" placeholder="LinkedIn Link" value="<?php echo $row['linkedin']; ?>"/>
+            </div>
+            <div>
+                <label for="instagram">Instagram Account</label>
+                <input type="url" name="instagram" id="instagram" placeholder="Instagram" value="<?php echo $row['instagram']; ?>"/>
+            </div>
+            <div>
+                <label for="twitter">Twitter Account</label>
+                <input type="url" name="twitter" id="twitter" placeholder="Twitter" value="<?php echo $row['twitter']; ?>"/>
+            </div>
+            <div>
+                <label for="facebook">Facebook Account</label>
+                <input type="url" name="facebook" id="facebook" placeholder="Facebook" value="<?php echo $row['facebook']; ?>"/>
+            </div>
             <button id="infobtn" name="infobtn">Update info</button>
         </form>
     </div>

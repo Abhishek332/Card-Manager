@@ -15,27 +15,36 @@ else{
         extract($_POST);
         $image = $_FILES['image'];
         $image_name = $image['name'];
-        if($image_name == NULL){
-            $image_name = $row['image'];
+        if(!empty($image_name)){
+            $image_tmp = $image['tmp_name'];
+            $image_extension = explode('.', $image_name); //to explode to string into two parts name and extention
+            $image_check = strtolower(end($image_extension));
+            $extention_array = array('jpg', 'jpeg', 'png');
+            if(in_array($image_check, $extention_array)){
+                $destination_file = 'Uploads/'.$image_name;
+                move_uploaded_file($image_tmp, $destination_file);
+                $sql = "UPDATE userdata SET fname='$fname', lname='$lname', image='$image_name', phone='$phone',
+                        whatsapp='$whatsapp', address='$address', company='$company', designation='$designation',
+                        github='$github', linkedin='$linkedin', twitter='$twitter', instagram='$instagram',
+                        facebook='$facebook' WHERE email = '$email'";
+                $result = mysqli_query($conn, $sql);  
+                if($result){
+                    echo "<script> alert('Info Updated Successfully'); </script>";
+                }
+            }
+            else{
+                echo "<script>alert('You only can upload .jpg, .jpeg or .png file in Image Section');</script>";
+            }
         }
-        $image_tmp = $image['tmp_name'];
-        $image_extension = explode('.', $image_name); //to explode to string into two parts name and extention
-        $image_check = strtolower(end($image_extension));
-        $extention_array = array('jpg', 'jpeg', 'png');
-        if(in_array($image_check, $extention_array)){
-            $destination_file = 'Uploads/'.$image_name;
-            move_uploaded_file($image_tmp, $destination_file);
-            $sql = "UPDATE userdata SET fname='$fname', lname='$lname', image='$image_name', phone='$phone',
-                    whatsapp='$whatsapp', address='$address', company='$company', designation='$designation',
-                    github='$github', linkedin='$linkedin', twitter='$twitter', instagram='$instagram',
-                    facebook='$facebook' WHERE email = '$email'";
+        else{
+            $sql = "UPDATE userdata SET fname='$fname', lname='$lname', phone='$phone',
+                        whatsapp='$whatsapp', address='$address', company='$company', designation='$designation',
+                        github='$github', linkedin='$linkedin', twitter='$twitter', instagram='$instagram',
+                        facebook='$facebook' WHERE email = '$email'";
             $result = mysqli_query($conn, $sql);  
             if($result){
                 echo "<script> alert('Info Updated Successfully'); </script>";
             }
-        }
-        else{
-            echo "<script>alert('You only can upload .jpg, .jpeg or .png file in Image Section');</script>";
         }
     }
     $query = "SELECT * from userdata where email= '$email'";
@@ -102,6 +111,7 @@ else{
             border-radius : 50%;
             display : flex;
             justify-content : center;
+            box-shadow : 0 0 15px #751616b8;
         }
 
         .img-input label{
@@ -131,7 +141,7 @@ else{
         }
 
         .logout:hover{
-            transform : scale(0.98);
+            transform : scale(0.9);
             box-shadow : inset 0px 0px 15px #0000006b;
         }
 
@@ -183,13 +193,15 @@ else{
             position : relative;
             margin : 20px auto;
             overflow : hidden;
+            display : flex;
+            align-items : center;
+            border-radius : 50%;
         }
 
         .img-wrapper img{
             position : absolute;
             width : 100%;
         }
-
         
         p{
             font-family : "RocknRollOne-Regular";
@@ -199,13 +211,17 @@ else{
             line-height : 25px;
         }
 
+        a{
+            text-decoration : none;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="nav">
         <div>
-            <h1>Card Manager</h1>
+            <a href="#"><h1>Card Manager</h1></a>
         </div>
         <a href="logout.php">
             <div class="logout">
@@ -218,8 +234,8 @@ else{
             <div class="img-input">
                 <label for="image">
                     <div class="img-wrapper">
-                        <?php if($row['image']== 'NULL'){?>
-                            <img src="Images/camera.png" alt="">
+                        <?php if($row['image']== NULL){?>
+                            <img src="Images/camera.png" style="opacity : 0.8;" alt="">
                         <?php }else{ ?>
                             <img src="Uploads/<?php echo $row['image']; ?>" alt="">
                         <?php } ?>

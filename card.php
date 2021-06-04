@@ -32,7 +32,7 @@
     }
 
     .card-container{
-        min-width : 300px;
+        min-width : 350px;
         border-radius : 20px;
         box-shadow : 0 0 10px var(--magic);
         background : #d4f9ff7d;
@@ -61,7 +61,7 @@
     }
 
     .card-container .content .details{
-        margin-left : 15px;
+        margin : 0 0 30px 15px;
         letter-spacing : 0.1rem;
     }
 
@@ -75,7 +75,7 @@
     .card-container .content .details h4{
         margin : 4px 0px;
         letter-spacing   : 2px;
-        font-size : 12px;
+        font-size : 13px;
     }
 
     .card-container .content .links{
@@ -92,14 +92,15 @@
     }
 
     .card-container .content .links .link .icon{
-        height : 25px;
-        width : 25px;
+        height : 28px;
+        width : 28px;
         border-radius : 50%;
         background : var(--magic);
         margin-right : 15px;
         display : flex;
         justify-content : center;
         align-items : center;
+        padding : 1px;
     }
 
     .card-container .content .links .link .icon i{
@@ -117,23 +118,32 @@
 <body>
     <div class="card-container">
         <div class="img-wrapper">
-            <img src="Uploads/<?php echo $row['image']; ?>" alt="">
+            <?php if($row['image']== NULL){?>
+                <img src="Images/camera.png" style="opacity : 0.8;" alt="">
+            <?php }else{ ?>
+                <img src="Uploads/<?php echo $row['image']; ?>" alt="">
+            <?php } ?>
         </div>
         <div class="content">
             <div class="details">
                 <h3><?php echo $row['fname']." ".$row['lname']; ?></h3>
                 <h4><?php echo $row['designation']; ?></h4>
-                <h4><?php echo $row['company']; ?></h4>
+                <h4>At <?php echo $row['company']; ?></h4>
             </div>
+            <!-- ========================== Links Start ============================ -->
             <div class  ="links">
+                <!-- ---------------------- Email -------------------------- -->
                 <?php if($row['email']!=NULL){ ?>
-                    <div class="link">
-                        <div class="icon">
-                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=<?php echo $row['email']; ?>">
+                        <div class="link">
+                            <div class="icon">
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            </div>
+                            <?php echo $row['email']; ?>
                         </div>
-                        <?php echo $row['email']; ?>
-                    </div>
+                    </a>
                 <?php }
+                // ---------------------- Address --------------------------
                 if($row['address']!=NULL){ ?>
                     <div class="link">
                         <div class="icon">
@@ -142,6 +152,7 @@
                         <?php echo $row['address']; ?>
                     </div>
                 <?php }
+                // ---------------------- Contact --------------------------
                 if($row['phone']!=NULL){ ?>
                     <div class="link">
                         <div class="icon">
@@ -150,6 +161,7 @@
                         <?php echo $row['phone']; ?>
                     </div>
                 <?php }
+                // ---------------------- Whatsapp --------------------------
                 if($row['whatsapp']!=NULL){ ?>
                     <a href="https://wa.me/<?php echo $row['whatsapp'];?>">
                         <div class="link">
@@ -160,6 +172,7 @@
                         </div>
                     </a>
                 <?php }
+                // ---------------------- Github --------------------------
                 if($row['github']!=NULL){ ?>
                     <a href="<?php echo $row['github']; ?>">
                         <div class="link">
@@ -170,6 +183,7 @@
                         </div>
                     </a>
                 <?php }
+                // ---------------------- LinkedIn --------------------------
                 if($row['linkedin']!=NULL){ ?>
                     <a href="<?php echo $row['linkedin']; ?>">
                         <div class="link">
@@ -180,6 +194,7 @@
                         </div>
                     </a>
                 <?php }
+                // ---------------------- Twitter --------------------------
                 if($row['twitter']!=NULL){ ?>
                     <a href="<?php echo $row['twitter']; ?>">
                         <div class="link">
@@ -190,6 +205,7 @@
                         </div>
                     </a>
                 <?php }
+                // ---------------------- Instagram --------------------------
                 if($row['instagram']!=NULL){ ?>
                     <a href="<?php echo $row['instagram']; ?>">
                         <div class="link">
@@ -200,6 +216,7 @@
                         </div>
                     </a>
                 <?php }
+                // ---------------------- Facebook --------------------------
                 if($row['facebook']!=NULL){ ?>
                     <a href="<?php echo $row['facebook']; ?>">
                         <div class="link">
@@ -211,6 +228,7 @@
                     </a>
                 <?php } ?>
             </div>
+            <!-- ========================== Links End ============================ -->
         </div>
     </div>
 </body>

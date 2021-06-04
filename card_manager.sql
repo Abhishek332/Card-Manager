@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2021 at 12:40 PM
+-- Generation Time: Jun 04, 2021 at 12:24 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.5
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `card-manager`
+-- Database: `card_manager`
 --
 
 -- --------------------------------------------------------
@@ -51,7 +51,7 @@ CREATE TABLE `userdata` (
 --
 
 INSERT INTO `userdata` (`Sr.`, `fname`, `lname`, `email`, `password`, `phone`, `whatsapp`, `address`, `company`, `designation`, `image`, `github`, `linkedin`, `twitter`, `instagram`, `facebook`) VALUES
-(29, 'Payal', 'Porwal', 'payal@gmail.com', '$2y$10$xF.0B9T52ucCUkp3/au84O578pRDnbhjcf1oqbzn7Megdvmkkv4PW', 2147483647, 2147483647, '5, Dayanand Colony, Street No. 2', 'Areksoft Technology', 'Web Developer', 'suryalogo (2).png', 'https://github.com/payal', 'https://linkedin.com/payal', '', '', '');
+(34, 'Abhishek', 'Porwal', 'abhishek@gmail.com', '$2y$10$x3oQZzEYgwQlw0fgCzud6ecS13OElV8Nb10sVCB.fzshkQLIfCRvi', 2147483647, 2147483647, '5, Dayanand Colony, Street No. 2', 'Freelance', 'Web Developer', '123.jpg', 'https://github.com/Abhishek332', 'https://linkedin.com/in/abhishek-porwal-213726194', '', 'https://instagram.com/abhiporwal_123', 'https://facebook.com/abhishek');
 
 --
 -- Indexes for dumped tables
@@ -72,7 +72,7 @@ ALTER TABLE `userdata`
 -- AUTO_INCREMENT for table `userdata`
 --
 ALTER TABLE `userdata`
-  MODIFY `Sr.` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `Sr.` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

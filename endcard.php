@@ -1,17 +1,10 @@
 <?php
-    session_start();
-
-    if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
-        echo "<script>alert('You Can't access without login, Please login first');</script>";
-        header("location: index.php");
-        exit;
-    }
-    else{
     include 'connection.php';
-    $email = $_SESSION['email'];
-    $sql = "Select * from userdata where email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
+    if(isset($_GET['email'])){
+        $email = $_GET['email'];
+        $sql = "Select * from userdata where email = '$email'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
     }
 ?>
 
@@ -28,33 +21,6 @@
     <title>My Card</title>
 </head>
 <body>
-    <div class="share-box">
-        <h3>Share By</h3>
-        <div class="share-icons">
-            <a href="whatsapp://send?text=http%3A//card-manager.epizy.com/endcard.php?email=<?php echo $email;?>"
-            data-action="share/whatsapp/share" target="_blank">
-                <div class="icon">
-                    <i class="fa fa-whatsapp" aria-hidden="true"></i>
-                </div>
-            </a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A//card-manager.epizy.com/endcard.php?email=<?php echo $email;?>&title=&summary=&source=">
-                <div class="icon">
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                </div>
-            </a>
-            <a href="https://twitter.com/intent/tweet?text=http%3A//card-manager.epizy.com/endcard.php?email=<?php echo $email;?>">
-                <div class="icon">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                </div>
-            </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//card-manager.epizy.com/endcard.php?email=<?php echo $email;?>">
-                    <div class="icon">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                </div>
-            </a>
-        </div>
-    </div>
-
     <div class="card-container">
         <div class="img-wrapper">
             <?php if($row['image']== NULL){?>

@@ -295,7 +295,7 @@ else{
             <button id="infobtn" name="infobtn">Update info</button>
         </form>
     </div>
-    <p>Your Card Password will be your Full Name. You can see your card by clicking the eye icon</p>
+    <p>You can see your card by clicking the eye icon</p>
     <a href="card.php">
         <div class="img-wrapper">
             <img src="Images/eye.png" alt="">

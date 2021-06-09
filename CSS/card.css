@@ -1,0 +1,122 @@
+    :root{
+        --magic : #f42246d9;
+    }
+    
+    .share-box{
+        margin : 20px 50px;
+        height : 150px;
+        width : 350px;
+    }
+
+    .share-box h3{
+        margin : 20px;
+        text-align : center;
+    }
+
+    .share-box .share-icons{
+        display : flex;
+        justify-content : center;
+        align-items : center;
+        padding : 10px 20px;
+        box-shadow : 0 0 10px #f4224669;
+        border-radius : 100%;
+    }
+
+    .share-box .share-icons a{
+        text-decoration : none;
+    }
+
+    .share-box .icon{
+        margin : 5px 15px;
+        background : pink;
+        color : green;
+        transition : 0.3s all ease-in-out;
+    }
+
+    .share-box .icon:hover{
+        transform : scale(1.1) rotate(360deg);
+    }
+
+    .card-container{
+        width : 380px;
+        border-radius : 20px;
+        box-shadow : 0 0 10px var(--magic);
+        background : #d4f9ff7d;
+    }
+
+    .card-container .img-wrapper{
+        height : 380px;
+        width : 100%;
+        border-radius : 20px 20px 0 0;
+        position : relative;
+        overflow : hidden;
+        display : flex;
+        justify-content : center;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0 88%);
+    }
+
+    .card-container .img-wrapper img{
+        height : 100%;
+        width : 100%;
+        object-fit : cover;
+        position : absolute; 
+    }
+
+    .card-container .content{
+        margin : 0 10px;
+    }
+
+    .card-container .content .details{
+        margin : 0 0 30px 15px;
+        letter-spacing : 0.1rem;
+    }
+
+    .card-container .content .details h3{
+        font-family : "RocknRollOne-Regular";
+        font-size : 18px;
+        line-height : 30px;  
+    }
+
+    .card-container .content .details h4{
+        margin : 4px 0px;
+        letter-spacing   : 2px;
+        font-size : 13px;
+    }
+
+    .card-container .content .links{
+        margin : 20px 15px;
+        color : var(--magic);
+        font-weight : bold;
+    }
+
+    .card-container .content .links .link{
+        display : flex;
+        justify-content : space-beetween;
+        align-items : center;
+        margin : 15px 0;
+    }
+
+    .icon{
+        height : 28px;
+        min-width : 28px;
+        border-radius : 50%;
+        display : flex;
+        justify-content : center;
+        align-items : center;
+        padding : 1px;
+    }
+
+    .card-container .content .links .link .icon{
+        background : var(--magic);
+        margin-right : 15px;
+    }
+
+    .card-container .content .links .link .icon i{
+        color : white;
+    }
+
+    .card-container .content .links a{
+        text-decoration : none;
+        font-family : "Raleway-Medium";
+        color : var(--magic);
+    }

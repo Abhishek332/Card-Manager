@@ -20,6 +20,7 @@
         padding : 10px 20px;
         box-shadow : 0 0 10px #f4224669;
         border-radius : 100%;
+        background: #f4f8f8;
     }
 
     .share-box .share-icons a{

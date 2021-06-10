@@ -258,7 +258,7 @@ else{
             </div>
             <div>
                 <label for="address">WhatsApp</label>
-                <input type="mobile" name="whatsapp" id="whatsapp" placeholder="Whatsapp No." value="<?php echo $row['whatsapp']; ?>"/>
+                <input type="mobile" name="whatsapp" id="whatsapp" placeholder="Enter Your Whatsapp No. with country code" value="<?php echo $row['whatsapp']; ?>"/>
             </div>
             <div>
                 <label for="address">Address</label>

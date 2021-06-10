@@ -12,6 +12,16 @@
     $sql = "Select * from userdata where email = '$email'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
+
+    //Encryption for email
+    // Choose cipher method
+    $cipher = "AES-128-CBC";
+    $encryption_key = 'card_manager';
+    $option = 0;
+    $encryption_iv = '9876543217539582';
+
+    // Use of OpenSSL Encryption Function to encrypt the data
+    $encryption = openssl_encrypt($email, $cipher, $encryption_key, $option, $encryption_iv);
     }
 ?>
 
@@ -28,26 +38,31 @@
     <title>My Card</title>
 </head>
 <body>
+    <a href="logout.php">
+        <div class="logout">
+            <img src="Images/log-btn.png" alt="">
+        </div>
+    </a>
     <div class="share-box">
         <h3>Share By</h3>
         <div class="share-icons">
-            <a href="whatsapp://send?text=http%3A//card-manager.epizy.com/endcard.php?email=<?php echo $email;?>"
+            <a href="whatsapp://send?text=http%3A//card-manager.epizy.com/endcard.php?u=<?php echo $encryption;?>"
             data-action="share/whatsapp/share" target="_blank">
                 <div class="icon">
                     <i class="fa fa-whatsapp" aria-hidden="true"></i>
                 </div>
             </a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A//card-manager.epizy.com/endcard.php?email=<?php echo $email;?>&title=&summary=&source=">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A//card-manager.epizy.com/endcard.php?u=<?php echo $encryption;?>&title=&summary=&source=">
                 <div class="icon">
                     <i class="fa fa-linkedin" aria-hidden="true"></i>
                 </div>
             </a>
-            <a href="https://twitter.com/intent/tweet?text=http%3A//card-manager.epizy.com/endcard.php?email=<?php echo $email;?>">
+            <a href="https://twitter.com/intent/tweet?text=http%3A//card-manager.epizy.com/endcard.php?u=<?php echo $encryption;?>">
                 <div class="icon">
                     <i class="fa fa-twitter" aria-hidden="true"></i>
                 </div>
             </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//card-manager.epizy.com/endcard.php?email=<?php echo $email;?>">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//card-manager.epizy.com/endcard.php?u=<?php echo $encryption;?>">
                     <div class="icon">
                     <i class="fa fa-facebook" aria-hidden="true"></i>
                 </div>

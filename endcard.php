@@ -1,11 +1,15 @@
 <?php
     include 'connection.php';
-    if(isset($_GET['email'])){
-        $email = $_GET['email'];
-        $sql = "Select * from userdata where email = '$email'";
-        $result = mysqli_query($conn, $sql);
-        $row = mysqli_fetch_assoc($result);
-    }
+    $email = $_GET['u'];
+    $cipher = "AES-128-CBC";
+    $decryption_key = 'card_manager';
+    $option = 0;
+    $decryption_iv = '9876543217539582';
+    
+    $decryption = openssl_decrypt($email, $cipher, $decryption_key, $option, $decryption_iv);
+    $sql = "Select * from userdata where email = '$decryption'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
 ?>
 
 

@@ -62,10 +62,6 @@ else{
     <title>Dashboard - Card Manager</title>
     <link rel="stylesheet" href="CSS/style.css">
     <style>
-        body{
-            display : block;
-        }
-
         .nav{
             width : 100%;
             background : #3939f696;

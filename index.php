@@ -79,20 +79,21 @@ if(isset($_POST['signinbtn'])){
     <style>
         .wrapper {
             height : 400px;
-            width : 400px;
+            max-width : 400px;
+            min-width : 250px;
             border-radius: 5px;
             box-shadow : 2px 2px 10px 5px pink;
-            padding : 15px;
             display : flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             margin : auto;
+            position : relative;
         }
 
         .sign{
             min-height : 300px;
-            width : 300px;
+            width : 85%;
             display: flex;
             align-items: center;
             flex-direction: column;
@@ -142,7 +143,6 @@ if(isset($_POST['signinbtn'])){
             transform: translateX(250px);
             opacity : 0;
         }
-
     </style>
 </head>
 <body>

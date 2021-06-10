@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2021 at 05:58 PM
+-- Generation Time: Jun 10, 2021 at 05:58 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.5
 
@@ -33,17 +33,17 @@ CREATE TABLE `userdata` (
   `lname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `phone` int(10) NOT NULL,
-  `whatsapp` int(10) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `whatsapp` varchar(255) NOT NULL,
   `address` varchar(1000) NOT NULL,
   `company` varchar(255) NOT NULL,
   `designation` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `github` varchar(1200) NOT NULL,
-  `linkedin` varchar(1200) NOT NULL,
-  `twitter` varchar(1200) NOT NULL,
-  `instagram` varchar(1200) NOT NULL,
-  `facebook` varchar(1200) NOT NULL
+  `github` varchar(255) NOT NULL,
+  `linkedin` varchar(255) NOT NULL,
+  `twitter` varchar(255) NOT NULL,
+  `instagram` varchar(255) NOT NULL,
+  `facebook` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -51,8 +51,8 @@ CREATE TABLE `userdata` (
 --
 
 INSERT INTO `userdata` (`Sr.`, `fname`, `lname`, `email`, `password`, `phone`, `whatsapp`, `address`, `company`, `designation`, `image`, `github`, `linkedin`, `twitter`, `instagram`, `facebook`) VALUES
-(34, 'Abhishek', 'Porwal', 'abhishek@gmail.com', '$2y$10$x3oQZzEYgwQlw0fgCzud6ecS13OElV8Nb10sVCB.fzshkQLIfCRvi', 2147483647, 2147483647, '5, Dayanand Colony, Street No. 2', 'Freelance', 'Web Developer', '123.jpg', 'https://github.com/Abhishek332', 'https://linkedin.com/in/abhishek-porwal-213726194', '', 'https://instagram.com/abhiporwal_123', 'https://facebook.com/abhishek'),
-(35, 'Rohit', 'Panchal', 'rohit@gmail.com', '$2y$10$IC0o9TkmA6bboTeQE8tQjuAOfeGAe4oeV8s8GE5UvjTskqM5t.KoO', 0, 0, '', '', '', 'WIN_20180210_09_01_51_Pro.jpg', '', '', '', '', '');
+(34, 'Abhishek', 'Porwal', 'abhishek@gmail.com', '$2y$10$x3oQZzEYgwQlw0fgCzud6ecS13OElV8Nb10sVCB.fzshkQLIfCRvi', '7987442949', '+917987442949', '5, Dayanand Colony, Street No. 2', '', 'Web Developer', '123.jpg', 'https://github.com/Abhishek332', 'https://linkedin.com/in/abhishek-porwal-213726194', '', 'https://instagram.com/abhiporwal_123', 'https://facebook.com/abhishekporwal1564026'),
+(35, 'Rohit', 'Panchal', 'rohit@gmail.com', '$2y$10$IC0o9TkmA6bboTeQE8tQjuAOfeGAe4oeV8s8GE5UvjTskqM5t.KoO', '0', '0', '', '', '', 'WIN_20180210_09_01_51_Pro.jpg', '', '', '', '', '');
 
 --
 -- Indexes for dumped tables

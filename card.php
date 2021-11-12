@@ -63,7 +63,7 @@
                 </div>
             </a>
             <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//card-manager.epizy.com/endcard.php?u=<?php echo $encryption;?>">
-                    <div class="icon">
+                <div class="icon">
                     <i class="fa fa-facebook" aria-hidden="true"></i>
                 </div>
             </a>

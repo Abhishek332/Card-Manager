@@ -2,19 +2,19 @@
 include 'connection.php';
 
 // ===================================== Sign Up =========================
-if(isset($_POST['signupbtn'])){
+if(isset($_POST['signupbtn']) != null){
     $showAlert = false;
     $showError = false;
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $cpassword = $_POST["cpassword"];
+    $email = isset($_POST['email'])?addslashes(strip_tags(trim($_POST['email']))):null;
+    $password = isset($_POST['password'])?addslashes(strip_tags(trim($_POST['password']))):null;
+    $cpassword = isset($_POST['cpassword'])?addslashes(strip_tags(trim($_POST['cpassword']))):null;
     
-
     // Check whether this email exists
     $existSql = "SELECT * FROM userdata WHERE email='$email'";
     $result = mysqli_query($conn, $existSql);
-    $numExistRows = mysqli_num_rows($result);
-    if($numExistRows > 0){
+    echo $existSql;
+    $row = mysqli_fetch_assoc($result);
+    if($row['id']!=null){
         $showError = true;
         if($showError){
             echo "<script>alert('Email Already Used Please Use a Different One')</script>";
@@ -22,10 +22,11 @@ if(isset($_POST['signupbtn'])){
     }
     else{
         if(($password == $cpassword)){
-            $hash = password_hash($password, PASSWORD_DEFAULT);
+        $hash = password_hash($password, PASSWORD_DEFAULT);
             $sql = "INSERT INTO userdata ( email, password) VALUES ('$email', '$hash')";
             $result = mysqli_query($conn, $sql);
             if ($result){
+                $_SESSION['UID'] = mysqli_insert_id($conn);
                 $showAlert = true;
                 if($showAlert){
                     echo "<script>alert('Your account is now created and you can login');</script>";
